@@ -1,0 +1,103 @@
+{% extends "../index_master.html" %}
+{% load static %}
+{% block content %}
+
+
+<title>Valnet | {{ equipo.categoria }} {{ equipo.marca }}</title>
+<link href="{% static 'forms.css' %}" rel="stylesheet">
+
+<style>
+  table{
+    margin: auto;
+    justify-content: center;
+    width: 60%;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    background-color: lightgray;
+    border: 1px solid rgb(173, 173, 173);
+    height: 50px;
+  }
+  .tinfo thead{
+  text-align: center;
+  padding-bottom: 10px;
+  }
+
+  label span{
+    font-size: 17px;
+    font-weight: 600;
+    color: black;
+  }
+  
+  .cheader {
+    float: right;
+    justify-content: center;
+    font-weight: 600;
+    color: black;
+    padding-right: 10px;
+    padding-top:3px;
+
+  }
+  
+  .ccont {
+    font-weight: 400;
+    color: black;
+    padding-left: 10px;
+    font-style: italic;
+  }
+</style>
+<script>
+  function redirectToURL() {
+      // Replace 'https://example.com' with the URL you want to redirect to
+      window.location.replace('../../listado_equipos');
+  }
+</script>
+<div class="right_col" role="main">
+  <div class="client_info">
+
+    <h1 id="titulo">Detalles de equipo <i>{{ equipo.categoria }}</i></h1>
+      <div class="client_status">
+
+      
+      <div class="articulo_form">
+        <table>
+          <tr>
+            <td class="cheader">Estado:</td><td class="ccont"> {% if equipo.instalado == 0 %} Equipo desintalado. {% else %} Equipo Instalado al cliente {{ equipo.c_instalado }}{% endif %}</td>
+          </tr>
+          <tr>
+            <td class="cheader">Marca de equipo:</td><td class="ccont">{{ equipo.marca }}</td>
+          </tr>
+          <tr>
+            <td class="cheader">Modelo:</td><td class="ccont">{{ equipo.modelo }}</td>
+          </tr>
+          <tr>
+            <td class="cheader">Serie:</td><td class="ccont">{{ equipo.serie }}</td>
+          </tr>
+          <tr>
+            <td class="cheader">Mac Address:</td><td class="ccont"><b>{{ equipo.mac }}</b></td>
+          </tr>
+          <tr>
+            <td class="cheader">WIFI Key:</td><td class="ccont">{{ equipo.pass_wifi }}</td>
+          </tr>
+          <tr>
+            <td class="cheader">Usuario Panel:</td><td class="ccont">{{ equipo.usuario }}</td>
+          </tr>
+          <tr>
+            <td class="cheader">Clave Panel:</td><td class="ccont">{{ equipo.pass_wifi }}</td>
+          </tr>
+          <tr>
+            <td class="cheader">Este equipo se encuentra en:</td><td class="ccont">{{ equipo.ubicacion }}</td>
+          </tr>
+        </table>
+        
+        
+        <hr><button style="float: left;" name="submit" onclick="redirectToURL()" type="submit" class="btn btn-secondary">Volver al Listado</button><a href="{% url 'equipo_editar' equipo.id %}"><button style="float: right;" type="button" class="btn btn-primary">Editar</button></a>
+        
+  </div>
+
+  </div>
+<div class="botones">
+  
+</div>
+</div>
+</div>
+{% endblock %}

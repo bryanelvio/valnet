@@ -1,0 +1,35 @@
+{% extends "../index_master.html" %}
+
+{% block content %}
+<script>
+  function redirectToURL() {
+      window.location.replace('../nuevo_ip');
+  }
+</script>
+<div class="right_col" role="main">
+<h1 style="float: left;">Listado de IPs</h1> <button style="float: right;" name="submit" onclick="javascript:redirectToURL()" type="submit" class="btn btn-primary"><i class='bx bx-plus-circle'></i>Nuevo IP</button>
+<table class="table table-striped table-borderless ">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">IP</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Asignado a</th>
+        <th scope="col">Accion</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in ip %}
+      <tr>
+        <th scope="row">{{ i.id }}</th>
+        <td>{{ i.num }}</td>
+        <td>{% if i.activo == 0 %} Inactivo {% else %} Activo {% endif %}</td>
+        <td>{% if i.usedby == none %} No Asignado {% else %} {{ i.usedby }} {% endif %}</td>
+        <td><a href="{% url 'ip' i.id %}">Ver Detalle</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  
+  </table>
+</div>
+{% endblock %}

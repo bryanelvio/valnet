@@ -1,0 +1,94 @@
+{% extends "../index_master.html" %}
+{% load static %}
+{% block content %}
+<script>
+  function redirectToURL() {
+      // Replace 'https://example.com' with the URL you want to redirect to
+      window.location.replace('../listado_equipos');
+  }
+</script>
+<!--CSS-->
+<link href="{% static 'forms.css' %}" rel="stylesheet">
+<link href="{% static 'info.css' %}" rel="stylesheet">
+
+<div class="right_col" role="main">
+    <h1 id="titulo">Agregar Nuevo Equipo</h1>
+
+    <!-- Formulario Nuevo Equipo -->
+    
+    <div class="articulo_form">
+      <form method="POST">
+        {% csrf_token %}
+        <div class="form-group row">
+          <label for="categoria" class="col-4 col-form-label">Categor&iacute;a</label> 
+          <div class="col-8">
+            <select id="categoria" name="categoria" class="custom-select">
+              <option value="router">Router</option>
+              <option value="repetidor">Repetidor</option>
+              <option value="antena">Antena</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="marca" class="col-4 col-form-label">Marca</label> 
+          <div class="col-8">
+            <select id="marca" name="marca" class="custom-select">
+              <option value="1">Ubiquiti</option>
+              <option value="2">Saegecomm</option>
+              <option value="3">Nokia</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="modelo" class="col-4 col-form-label">Modelo</label> 
+          <div class="col-8">
+            <input id="modelo" name="modelo" type="text" class="form-control">
+          </div>
+        </div>
+        
+        <div class="form-group row">
+          <label for="serie" class="col-4 col-form-label">Serie</label> 
+          <div class="col-8">
+            <input id="serie" name="serie" type="text" required="required" class="form-control">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="mac" class="col-4 col-form-label">Mac</label> 
+          <div class="col-8">
+            <input id="mac" name="mac" type="text" class="form-control">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="pass_wifi" class="col-4 col-form-label">Wifi Password</label> 
+          <div class="col-8">
+            <input id="pass_wifi" name="pass_wifi" type="text" class="form-control">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="usuario" class="col-4 col-form-label">Usuario (admin)</label> 
+          <div class="col-8">
+            <input id="usuario" name="usuario" type="text" class="form-control">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="usuario" class="col-4 col-form-label">Pass. (admin)</label> 
+          <div class="col-8">
+            <input id="clave" name="clave" type="text" class="form-control">
+          </div>
+        </div> 
+        <div class="form-group row">
+          <div class="offset-4 col-8">
+            <button name="submit" type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+        </div>
+      </form>
+     
+      <hr>
+      <button style="float:inline-end" name="submit" onclick="javascript:redirectToURL()" type="submit" class="btn btn-secondary">Volver al Listado</button>     
+</div>
+
+</div>
+{% endblock %}
+
+
+

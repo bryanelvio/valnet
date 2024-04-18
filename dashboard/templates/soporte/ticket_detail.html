@@ -1,0 +1,50 @@
+{% extends "../index_master.html" %}
+
+{% block content %}
+
+{% load static %}
+<title>Valnet | Reporte #{{ ticket.id }}</title>
+<link href="{% static 'forms.css' %}" rel="stylesheet">
+
+<div class="right_col" role="main">
+  <div class="client_info">
+
+    <h1 id="titulo">Soporte - Ticket #{{ ticket.id }}</h1>
+      <div class="articulo_form">
+     
+        <table>
+          <tr>
+            <td style="width:150px">Cliente</td><td class="ccont">{{ticket.cliente}}</td>
+          </tr>
+          <tr>
+            <td class="cheader">Categoria</td><td class="ccont">{{ticket.cliente.tipo}}</td>
+          </tr>
+          <tr>
+            <td class="cheader">Telefono</td><td class="ccont">{{cliente.telefono}}</td>
+          </tr>
+          <tr>
+            <td class="cheader">Direcci&oacute;n</td><td class="ccont">{{cliente.direccion}}</td>
+          </tr>
+          <tr>
+            <td class="cheader">Zona</td><td class="ccont">{{cliente.zona}}</td>
+          </tr>
+          <tr>
+            <td class="cheader">Plan</td><td class="ccont">{{cliente.plan}}</td>
+          </tr>
+          <tr>
+            <td class="cheader">Abierto en</td><td class="ccont">{{ticket.f_reg}}</td>
+          </tr>
+          <tr>
+            <td class="cheader">Fecha L&iacute;mite</td><td class="ccont">{{ticket.f_compromiso}}</td>
+          </tr>
+        </table>
+</div>
+</div>
+</div>
+<script>
+  function redirectToURL() {
+      // Replace 'https://example.com' with the URL you want to redirect to
+      window.location.replace('../listado_ips');
+  }
+</script>
+{% endblock %}

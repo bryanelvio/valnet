@@ -1,0 +1,41 @@
+{% extends "../index_master.html" %}
+
+{% block content %}
+<script>
+  function redirectToURL() {
+      // Replace 'https://example.com' with the URL you want to redirect to
+      window.location.replace('../nuevo_equipo');
+  }
+</script>
+<div class="right_col" role="main">
+<h1 style="float: left;">Listado de Equipos</h1> <button style="float: right; margin-top:10px" name="submit" onclick="javascript:redirectToURL()" type="submit" class="btn btn-primary"><i class='bx bx-plus-circle'></i> Nuevo Equipo</button>
+<table class="table table-striped table-borderless ">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Categoria</th>
+        <th scope="col">Marca</th>
+        <th scope="col">Modelo</th>
+        <th scope="col">Mac</th>
+        <th scope="col">Ubicaci&oacute;n</th>
+        <th scope="col">Acci&oacute;n</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for e in equipos %}
+      <tr>
+        <th scope="row">{{ e.id }}</th>
+        <td>{{ e.categoria }}</td>
+        <td>{{ e.marca }}</td>
+        <td>{{ e.modelo }}</td>
+        <td>{{ e.mac }}</td>
+        <td>{{ e.ubicacion }}</td>
+        <td><a href="{% url 'equipo_detail' e.id %}"><i style="font-size: large;" class='bx bxs-info-circle' ></i></a>
+          <a href="{% url 'equipo_editar' e.id %}"><i style="font-size: large;" class='bx bxs-edit' ></i></a>
+          <a href="{% url 'eliminar_equipo' e.id %}"><i style="font-size: large;" class='bx bxs-trash' ></i></a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

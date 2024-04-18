@@ -1,0 +1,48 @@
+{% extends "../index_master.html" %}
+
+{% block content %}
+<script>
+  function redirectToURL() {
+    window.location = "{% url 'nueva_brigada' %}";
+  }
+</script>
+<div class="right_col" role="main">
+<h1 style="float:left;">Listado de Ordenes</h1>
+<table class="table table-striped table-borderless ">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Cliente</th>
+        <th scope="col">Brigada</th>
+        <th scope="col">Tipo de Internet</th>
+        <th scope="col">Velocidad</th>
+        <th scope="col">Contacto</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in instalaciones %}
+      <tr>
+        <th scope="row">{{ i.id }}</th>
+        <td>{{ i.cliente }}</td>
+        <td>{% if i.brigada == none %}Sin Asignar{% else %}{{ i.brigada }}{% endif %}</td>
+        <td>{{ i.cliente.plan }}</td>
+        <td>
+          {% if i.cliente.plan == 'fibra' %}
+          {{ i.cliente.mbps_f }}
+          {% elif i.cliente.plan == 'wireless' %}
+          {{ i.cliente.mbps_w }}
+          {% elif i.cliente.tipo != 'Residencial' %}
+          {{ i.cliente.bajada}}Mbps/{{ i.cliente.subida }}Mbps
+          {% endif %}
+        </td>
+        <td>{{ i.cliente.telefono }}</td>
+
+        <td><a href="#">Ver Detalle</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  
+  </table>
+</div>
+{% endblock %}

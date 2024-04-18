@@ -1,0 +1,49 @@
+{% extends "../index_master.html" %}
+{% load static %}
+{% block content %}
+<script>
+  function redirectToURL() {
+      // Replace 'https://example.com' with the URL you want to redirect to
+      window.location.replace('../listado_ips');
+  }
+</script>
+<!--CSS-->
+<link href="{% static 'forms.css' %}" rel="stylesheet">
+<link href="{% static 'info.css' %}" rel="stylesheet">
+
+<div class="right_col" role="main">
+    <h1 id="titulo">Agregar Nuevo IP</h1>
+
+    <!-- Formulario Nuevo articulo -->
+    
+    <div class="articulo_form">
+      <form method="POST">
+        {% csrf_token %}
+        <div class="form-group row">
+          <label for="nombre" class="col-4 col-form-label">Numeraci&oacute;n IP</label> 
+          <div class="col-8">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fa fa-dropbox"></i>
+                </div>
+              </div> 
+              <input id="num" name="num" type="text" class="form-control" required="required">
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="offset-4 col-8">
+            <button name="submit" type="submit" class="btn btn-primary">Agregar</button>
+          </div>
+        </div>
+      </form>
+      <hr>
+      <button style="float: right;" name="submit" onclick="javascript:redirectToURL()" type="submit" class="btn btn-secondary">Volver al Listado</button>
+      
+</div>
+</div>
+{% endblock %}
+
+
+

@@ -1,0 +1,36 @@
+{% extends "../index_master.html" %}
+
+{% block content %}
+{% load static %}
+<title>Valnet | Asignaci&oacute;n de Brigada</title>
+<link href="{% static 'forms.css' %}" rel="stylesheet">
+
+<div class="right_col" role="main">
+  <h1 id="titulo">Asignaci&oacute;n de Brigada</h1>
+  <div class="articulo_form">
+    <p style="text-align: center; color:black;">Para completar el proceso, es necesario que asigne una brigada a 
+      la orden de reporte.</p>
+    <form method="POST" style="align-items: center; text-align:center;">
+      {% csrf_token %}
+      <div class="form-group row">
+        <div style="align-items: center; margin: 0 auto; width:50px;" class="col-8">
+          <select style="width: 100px; padding-right:30px; align-items:center;" id="brigada" name="brigada" class="custom-select" required="required">
+            {% for b in brigadas %}
+            <option value="{{ b.id }}">{{ b.ficha }}</option>
+            {% endfor %}
+          </select>
+          <button style="background-color:#001b36; border:none; margin-top:5px;" 
+          name="submit" type="submit" class="btn btn-primary"><i style="color:#f5811f;" 
+          class='bx bx-save' ></i> Guardar</button>
+        </div>
+      </div>
+    </form>
+      
+        
+      
+  </div>
+</div>
+
+
+</div>
+{% endblock %}

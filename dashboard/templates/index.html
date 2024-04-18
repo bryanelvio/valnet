@@ -1,0 +1,391 @@
+{% extends 'index_master.html' %}
+
+{% block content %}
+
+    <!-- page content -->
+    <div class="right_col" role="main">
+        <div style="height:100px; margin:0 auto; width:300px; background-color: rgb(1, 1, 51);  border-radius:25px;">
+            <h4 style="padding-top:25px; color:rgb(255, 255, 255); text-align:center;">Panel Valnet</h4>
+          </div>
+      <div style="margin-top:25px;" class="row">
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                CLIENTES REGISTRADOS</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ clientes_cant }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bx bx-group bx-md text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+          <div class="card border-left-primary shadow h-100 py-2">
+              <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                          <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                              BRIGADAS REGISTRADAS</div>
+                          <div class="h5 mb-0 font-weight-bold text-gray-800">{{ brigadas_cant }}</div>
+                      </div>
+                      <div class="col-auto">
+                          <i class="bx bxs-truck bx-md text-gray-300"></i>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+          <div class="card border-left-primary shadow h-100 py-2">
+              <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                          <div class="text-xs font-weight-bold text-primary-emphasis text-uppercase mb-1">
+                              INSTALACIONES PENDIENTES</div>
+                          <div class="h5 mb-0 font-weight-bold text-gray-800">{{ clientes_cant }}</div>
+                      </div>
+                      <div class="col-auto">
+                          <i class="bx bx-cog bx-md text-tertiary"></i>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+        <!-- Pending Requests Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+          <div class="card border-left-primary shadow h-100w pd-25 py-2">
+              <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                          <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                              REPORTES ABIERTOS</div>
+                          <div class="h5 mb-0 font-weight-bold text-gray-800">{{ tickets_cant }}</div>
+                      </div>
+                      <div class="col-auto">
+                          <i class="bx bxs-receipt bx-md text-gray-300"></i>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+      </div>
+    </div>
+    <div style="height:80px; margin:0 auto;">
+        <h4 style="padding-top:25px">Almacen e Inventarios</h4>
+      </div>
+    <div class="row">
+
+      <!-- Area Chart -->
+      <div style="height: 240px; overflow-y:auto;" class="col-xl-8 col-lg-7">
+          <div class="card shadow mb-4">
+              <!-- Card Header - Dropdown -->
+              <div
+                  class="card-header py-2 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Carencias en Almacen</h6>
+                  <div class="dropdown no-arrow">
+                      <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                          aria-labelledby="dropdownMenuLink">
+                          <div class="dropdown-header">Acciones:</div>
+                          <a class="dropdown-item" href="#">Ver almacen</a>
+                          <a class="dropdown-item" href="#">Notificar a encargado</a>
+
+                      </div>
+                  </div>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Articulo</th>
+                            <th>Cantidad</th>
+                            <th>Accion</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>ID</th>
+                            <th>Articulo</th>
+                            <th>Cantidad</th>
+                            <th>Accion</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        {% for c in pocos_articulos %}
+                        <tr>
+                            <td>{{c.id}}</td>
+                            <td>{{c.nombre}}</td>
+                            <td>{{c.cantidad}}</td>
+                            <td><a href="#">Suplir</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+              <!-- Card Body -->
+              <div class="card-body">
+                  <div class="chart-area">
+                      <canvas id="myAreaChart"></canvas>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <!-- Pie Chart -->
+      <div style="height: 240px; overflow-y:auto;" class="col-xl-4 col-lg-5">
+          <div class="card shadow mb-4">
+              <!-- Card Header - Dropdown -->
+              <div
+                  class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-warning">Brigadas en Carencias</h6>
+
+                
+              </div>
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="85%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Ficha</th>
+                            <th>Articulo</th>
+                            <th>Cantidad</th>
+                            <th>Accion</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Ficha</th>
+                            <th>Articulo</th>
+                            <th>Cantidad</th>
+                            <th>Accion</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        {% for c in pc_brigada %}
+                        <tr>
+                            <td>{{c.brigada.ficha}}</td>
+                            <td>{{c.articulo}}</td>
+                            <td>{{c.cantidad}}</td>
+                            <td><a href="#">Suplir</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+              <!-- Card Body -->
+              <div class="card-body">
+                  <div class="chart-pie pt-4 pb-2">
+                      <canvas id="myPieChart"></canvas>
+                  </div>
+                
+              </div>
+          </div>
+      </div>
+  </div>
+  <div style="height:80px; margin:0 auto;">
+    <h4 style="padding-top:25px">Ordenes Pendientes</h4>
+  </div>
+<!-- Fila de instalaciones y tickets -->
+  <div class="row">
+
+    <!-- Area Chart -->
+    <div style="height: 240px; overflow-y:auto;" class="col-xl-8 col-lg-7">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div
+                class="card-header py-2 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Instalaciones Pendientes</h6>
+                <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                        aria-labelledby="dropdownMenuLink">
+                        <div class="dropdown-header">Acciones</div>
+                        <a class="dropdown-item" href="#">Ver todas</a>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                      <tr>
+                          <th>ID</th>
+                          <th>Cliente</th>
+                          <th>Telefono</th>
+                          <th>Zona</th>
+                          <th>Plan</th>
+                          <th>Brigada Responsable</th>
+                          <th>Accion</th>
+                      </tr>
+                  </thead>
+                  <tfoot>
+                      <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>Telefono</th>
+                        <th>Zona</th>
+                        <th>Plan</th>
+                        <th>Brigada Responsable</th>
+                        <th>Accion</th>
+                      </tr>
+                  </tfoot>
+                  <tbody>
+                      {% for c in instalaciones %}
+                      <tr>
+                          <td>{{c.id}}</td>
+                          <td>{{c.cliente.nombre}}</td>
+                          <td>{{c.cliente.telefono}}</td>
+                          <td>{{c.cliente.zona}}</td>
+                            <td>{{c.cliente.plan}}</td>
+                            <td>{{c.brigada}}</td>
+                          <td><a href="#">Ver Detalles</a></td>
+                      </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+          </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div class="chart-area">
+                    <canvas id="myAreaChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pie Chart -->
+    <div style="height: 240px; overflow-y:auto;" class="col-xl-4 col-lg-5">
+        <div style="overflow-y:auto;" class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div
+                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-warning">Tickets Abiertos</h6>
+                <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="bx bx-dots-vertical-rounded bx-sm bx-fw text-gray-400"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                        aria-labelledby="dropdownMenuLink">
+                        <div class="dropdown-header">Acciones</div>
+                        <a class="dropdown-item" href="#">Ver todos</a>
+                    </div>
+                </div>
+              
+            </div>
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="85%" cellspacing="0">
+                  <thead>
+                      <tr>
+                          <th>Cliente</th>
+                          <th>Contacto</th>
+                          <th>Brigada Responsable</th>
+                          <th>Accion</th>
+                      </tr>
+                  </thead>
+                  <tfoot>
+                      <tr>
+                          <th>Cliente</th>
+                          <th>Contacto</th>
+                          <th>Brigada Responsable</th>
+                          <th>Accion</th>
+                      </tr>
+                  </tfoot>
+                  <tbody>
+                      {% for c in tickets_abiertos %}
+                      <tr>
+                          <td>{{c.brigada.ficha}}</td>
+                          <td>{{c.cliente}}</td>
+                          <td>{{c.descripcion}}</td>
+                          <td><a href="#">Suplir</a></td>
+                      </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+          </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div class="chart-pie pt-4 pb-2">
+                    <canvas id="myPieChart"></canvas>
+                </div>
+              
+            </div>
+            
+        </div>
+        
+    </div>
+    
+</div>
+<div style="height:80px; margin:0 auto;">
+    <h4 style="padding-top:25px">Ultimos Movimientos</h4>
+  </div>
+<!-- Fila de instalaciones y tickets -->
+  <div class="row">
+
+    <!-- Area Chart -->
+    <div style="height: 240px; overflow-y:auto;" class="col-xl-8 col-lg-7">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div
+                class="card-header py-2 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">&Uacute;ltimas Instalaciones</h6>
+                <div class="dropdown no-arrow">
+                </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Brigada</th>
+                        <th>Materiales Usados</th>
+                        <th>Fecha y Hora de uso</th>
+                      </tr>
+                  </thead>
+                  <tfoot>
+                      <tr>
+                        <th>ID</th>
+                        <th>Brigada</th>
+                        <th>Materiales Usados</th>
+                        <th>Fecha y Hora de uso</th>
+                      </tr>
+                  </tfoot>
+                  <tbody>
+                      {% for u in ult_movimientos %}
+                      <tr>
+                          <td>{{u.id}}</td>
+                          <td>{{u.brigada}}</td>
+                          <td>{{u.materiales}}</td>
+                            <td>{{u.fecha}} | {{u.hora}}</td>
+                      </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+          </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div class="chart-area">
+                    <canvas id="myAreaChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+        <!-- /page content -->
+{% endblock %}

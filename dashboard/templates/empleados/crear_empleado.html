@@ -1,0 +1,112 @@
+{% extends "../index_master.html" %}
+{% load static %}
+{% block content %}
+<link href="{% static 'forms.css' %}" rel="stylesheet">
+<link href="{% static 'info.css' %}" rel="stylesheet">
+<div class="right_col" role="main">
+  <h1 id="titulo">Crear nuevo Usuario para Empleado</h1>
+  <div class="articulo_form">
+
+    {{error.as_p}}
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group row">
+      <label for="first_name" class="col-4 col-form-label">Nombres</label> 
+      <div class="col-8">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <i class="fa fa-address-card"></i>
+            </div>
+          </div> 
+          <input id="last_name" name="last_name" type="text" class="form-control">
+        </div>
+      </div>
+    </div>    
+    <div class="form-group row">
+      <label for="first_name" class="col-4 col-form-label">Apellidos</label> 
+      <div class="col-8">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <i class="fa fa-address-card"></i>
+            </div>
+          </div> 
+          <input id="first_name" name="first_name" type="text" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="username" class="col-4 col-form-label">Nombre de Usuario</label> 
+      <div class="col-8">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <i class="fa fa-user"></i>
+            </div>
+          </div> 
+          <input id="username" name="username" type="text" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="email" class="col-4 col-form-label">E-mail</label> 
+      <div class="col-8">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <i class="fa fa-envelope"></i>
+            </div>
+          </div> 
+          <input id="email" name="email" type="text" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="password1" class="col-4 col-form-label">Password</label> 
+      <div class="col-8">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <i class="fa fa-unlock"></i>
+            </div>
+          </div> 
+          <input id="password1" name="password1" type="password" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="password2" class="col-4 col-form-label">Repetir Password</label> 
+      <div class="col-8">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <i class="fa fa-unlock-alt"></i>
+            </div>
+          </div> 
+          <input id="password2" name="password2" type="password" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="departamento" class="col-4 col-form-label">Departamento</label> 
+      <div class="col-8">
+        <select id="departamento" name="departamento" class="custom-select">
+          {% for d in departamentos %}
+          <option value="{{ d.id }}">( {{d.id}} ) {{ d.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div> 
+    <div class="form-group row">
+      <div class="offset-4 col-8">
+        <button name="submit" type="submit" class="btn btn-primary">Submit</button><button name="submit" type="reset" class="btn btn-secondary">Resetear</button>
+      </div>
+    </div>
+  </form>
+   </div> 
+    
+ 
+</div>
+{% endblock %}

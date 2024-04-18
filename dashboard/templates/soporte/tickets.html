@@ -1,0 +1,38 @@
+{% extends "../index_master.html" %}
+{% load static %}
+{% block content %}
+<script>
+  function redirectToURL() {
+    window.location = "{% url 'nuevo_ticket' %}";
+  }
+</script>
+<link href="{% static 'cards.css' %}" rel="stylesheet">
+<div class="right_col" role="main">
+<h1>Lista de Reportes</h1> <button style="background-color:#001b36; position:absolute; right:0; top: 0; margin:70px 30px 0 0; border:none;" name="submit" onclick="javascript:redirectToURL()" type="submit" class="btn btn-primary"><i style="color:#f4801f;" class='bx bx-plus-circle'></i> Nuevo Reporte</button>
+
+
+<section class="reportes">
+
+    {% for t in tickets %}
+    <div id="{{t.prioridad}}" class="card">
+       <div class="card-content">
+         <div class="card-title">
+           <h2>{{t.titulo}} - Cliente:{{t.cliente}}</span></h2>
+         </div>
+         <a href="{% url 'ticket' t.id %}">
+         <div id="{{t.prioridad}}" class="prio-lvl">{{t.prioridad}}</div>
+         <div class="card-desc">{{t.descripcion}}</div>
+         <div class="card-date">Registrado En {{t.f_reg}}</div>
+         <div class="expiry-date">{{t.f_compromiso}}</div>
+        </a>
+       </div> 
+
+
+     </div>
+ 
+  {% endfor %}
+</section>
+
+</div>
+{% endblock %}
+

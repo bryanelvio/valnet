@@ -1,0 +1,346 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="icon" href="images/favicon.ico" type="image/ico" />
+
+  
+
+    <!-- BoxIcons Iconos-->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Bootstrap -->
+    <link href="{% static '/FrWork/admin_lte/vendors/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="{% static '/FrWork/admin_lte/vendors/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="{% static '/FrWork/admin_lte/vendors/nprogress/nprogress.css' %}" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="{% static '/FrWork/admin_lte/vendors/iCheck/skins/flat/green.css' %}" rel="stylesheet">
+	
+    <!-- bootstrap-progressbar -->
+    <link href="{% static '/FrWork/admin_lte/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css' %}" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="{% static '/FrWork/admin_lte/vendors/jqvmap/dist/jqvmap.min.css' %}" rel="stylesheet"/>
+    <!-- bootstrap-daterangepicker -->
+    <link href="{% static '/FrWork/admin_lte/vendors/bootstrap-daterangepicker/daterangepicker.css' %}" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="{% static '/FrWork/admin_lte/build/css/custom.css' %}" rel="stylesheet">
+
+    <!-- Form Icons -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  
+
+      <script>
+        function triggerF11() {
+          var element = document.documentElement;
+          var requestMethod = element.requestFullscreen || element.webkitRequestFullscreen || element.mozRequestFullScreen || element.msRequestFullscreen;
+
+          if (requestMethod) {
+            requestMethod.call(element);
+          } else if (typeof window.ActiveXObject !== "undefined") {
+            var wscript = new ActiveXObject("WScript.Shell");
+            if (wscript !== null) {
+              wscript.SendKeys("{F11}");
+            }
+          }
+        }
+
+        var button = document.getElementById('fs');
+        button.addEventListener('click', triggerF11);
+      </script>
+
+  </head>
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href=".." class="site_title"><img src="{% static "images/valnet.png" %}" width="130" alt=""></a>
+            </div>
+
+            <!-- menu profile quick info -->
+            <div class="profile clearfix">
+              <div class="profile_pic">
+                <img src="{% static "images/exval.jpg" %}" alt="Foto Perfil" class="img-circle profile_img">
+              </div>
+              <div class="profile_info">
+                <span>Bienvenido</span>
+                <h2>{% if user.is_authenticated %}
+                  <p>{{ user.username }}!</p>
+              {% else %}
+                  <p>You are not logged in.</p>
+              {% endif %}</h2>
+              </div>
+            </div>
+            <!-- /menu profile quick info -->
+
+            <br />
+
+            <!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <div class="menu_section">
+                <ul class="nav side-menu">
+                  <li><a><i class='bx bxs-dashboard'></i> Dashboard <span class='bx bx-chevron-down' ></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="#">Almacen e Inventarios</a></li>
+                      <li><a href="#">Ordenes Pendientes</a></li>
+                      <li><a href="#">Ultimos Movimientos</a></li>
+                    </ul>
+                  </li>
+
+                  <li><a><i class='bx bxs-package' ></i> Almacen <span class='bx bx-chevron-down' ></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{% url 'almacen' %}">Articulos</a></li>
+                      <li><a href="{% url 'nuevo_articulo' %}">Agregar Articulo</a></li>
+                      <li><a><i class='bx bxs-hdd'></i> Equipos<span class='bx bx-chevron-down' ></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="{% url 'equipos' %}"><i class='bx bx-list-ul' ></i> Listado de Equipos</a></li>
+                        <li><a href="{% url 'nuevo_equipo' %}"><i class='bx bxs-plus-square' ></i> Nuevo Equipo</a></li>
+                      </li>
+                      </ul>
+                    </ul>
+                  </li>
+                  <li><a><i class='bx bxs-truck'></i> Brigadas <span class='bx bx-chevron-down'></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{% url 'listado_brigadas' %}">Listado de Brigadas</a></li>
+                      <li><a href="{% url 'ordenes' %}">Ordenes</a></li>
+                      
+                    </ul>
+                  </li>
+                  <li><a><i class='bx bxs-group'></i> Clientes <span class='bx bx-chevron-down' ></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{% url 'listado' %}">Listado de Clientes</a></li>
+                      <li><a href="{% url 'crear_cliente' %}">Nuevo Cliente</a></li>
+                    </ul> 
+                  </li>
+                  <li><a><i class='bx bx-handicap' ></i> Soporte <span class='bx bx-chevron-down' ></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{% url 'tickets' %}">Tickets</a></li>
+                      <li><a href="{% url 'nuevo_ticket' %}">Nuevo Reporte</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class='bx bx-hive' ></i> Coordinaci&oacute;n <span class='bx bx-chevron-down' ></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{% url 'tickets_pendientes' %}">Tickets Pendientes</a></li>
+                      <li><a href="{% url 'tickets_cerrados' %}">Tickets Cerrados</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+              <div class="menu_section">
+                <h3>MENU ADMINISTRATIVO (BETA)</h3>
+                <ul class="nav side-menu">
+                  <li><a><i class='bx bxs-hard-hat' ></i> Empleados (Usuarios) <span class='bx bx-chevron-down'></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{% url 'listado_empleados' %}"><i class='bx bxs-user-detail' ></i> Usuarios</a></li>
+                      <li><a href="{% url 'nuevo_empleado' %}"><i class='bx bxs-user-plus'></i> Nuevo Usuario</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class='bx bxs-network-chart' ></i> Ordenes Tecnicas <span class='bx bx-chevron-down' ></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{% url 'instalaciones' %}"><i class='bx bx-info-circle' ></i> Instalaciones</a></li>
+                      <li><a href="{% url 'reportes' %}"><i class='bx bx-check-double' ></i> Reportes</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class='bx bxs-bank' ></i> Banco de IPs <span class='bx bx-chevron-down'></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="{% url 'listado_ips' %}"><i class='bx bx-list-ul'></i>Listado de IPs</a>
+                        <li><a href="{% url 'nuevo_ip' %}"><i class='bx bx-plus' ></i>Nuevo IP</a>
+                        </li>
+                        </li>
+                    </ul>
+                  </li>                  
+                </ul>
+              </div>
+
+            </div>
+            <!-- /sidebar menu -->
+
+            <!-- /menu footer buttons -->
+            <div class="sidebar-footer hidden-small">
+              <a data-toggle="tooltip" data-placement="top" title="Configuraci&oacute;n">
+                <span class='bx bxs-cog' aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="Pantalla Completa">
+                <i id="fs" onclick="javascript:triggerF11();" class='bx bx-fullscreen' ></i>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="Bloquear">
+                <i class='bx bxs-lock-alt' ></i>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="Salir" href="login.html">
+                <i class='bx bx-exit'></i>
+              </a>
+            </div>
+            <!-- /menu footer buttons -->
+          </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+          <div class="nav_menu">
+              <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+              </div>
+              <nav class="nav navbar-nav">
+              <ul class=" navbar-right">
+                <li class="nav-item dropdown open" style="padding-left: 15px;">
+                  <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                    <img src="images/img.jpg" alt="">{% if user.is_authenticated %}
+                    <span>{{ user.username }}!</span>
+                {% else %}
+                    <span>You are not logged in.</span>
+                {% endif %}
+                  </a>
+                  <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item"  href="javascript:;"> Profile</a>
+                      <a class="dropdown-item"  href="javascript:;">
+                        <span class="badge bg-red pull-right">50%</span>
+                        <span>Configuracion</span>
+                      </a>
+                  <a class="dropdown-item"  href="javascript:;">Help</a>
+                    <a class="dropdown-item"  href="{% url 'sign_out' %}"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                  </div>
+                </li>
+
+                <li role="presentation" class="nav-item dropdown open">
+                  <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-envelope-o"></i>
+                    <span class="badge bg-green">6</span>
+                  </a>
+                  <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
+                    <li class="nav-item">
+                      <a class="dropdown-item">
+                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="dropdown-item">
+                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="dropdown-item">
+                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="dropdown-item">
+                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <div class="text-center">
+                        <a class="dropdown-item">
+                          <strong>See All Alerts</strong>
+                          <i class="fa fa-angle-right"></i>
+                        </a>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <!-- /top navigation -->
+
+
+
+        <!-- ****************************************   -->
+
+        {% block content %}
+        {% endblock %}
+
+
+        <!-- footer content -->
+        <footer>
+          <div class="pull-right">
+            Valnet System - Beta 1.0 Desarrollado por <a href="#">Adtivo</a>
+          </div>
+          <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+      </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="{% static '/FrWork/admin_lte/vendors/jquery/dist/jquery.min.js' %}"></script>
+    <!-- Bootstrap -->
+    <script src="{% static '/FrWork/admin_lte/vendors/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- FastClick -->
+    <script src="{% static '/FrWork/admin_lte/vendors/fastclick/lib/fastclick.js' %}"></script>
+    <!-- NProgress -->
+    <script src="{% static '/FrWork/admin_lte/vendors/nprogress/nprogress.js' %}"></script>
+    <!-- Chart.js -->
+    <script src="{% static '/FrWork/admin_lte/vendors/Chart.js/dist/Chart.min.js' %}"></script>
+    <!-- gauge.js -->
+    <script src="{% static '/FrWork/admin_lte/vendors/gauge.js/dist/gauge.min.js' %}"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="{% static '/FrWork/admin_lte/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js' %}"></script>
+    <!-- iCheck -->
+    <script src="{% static '/FrWork/admin_lte/vendors/iCheck/icheck.min.js' %}"></script>
+    <!-- Skycons -->
+    <script src="{% static '/FrWork/admin_lte/vendors/skycons/skycons.js' %}"></script>
+    <!-- Flot -->
+    <script src="{% static '/FrWork/admin_lte/vendors/Flot/jquery.flot.js' %}"></script>
+    <script src="{% static '/FrWork/admin_lte/vendors/Flot/jquery.flot.pie.js' %}"></script>
+    <script src="{% static '/FrWork/admin_lte/vendors/Flot/jquery.flot.time.js' %}"></script>
+    <script src="{% static '/FrWork/admin_lte/vendors/Flot/jquery.flot.stack.js' %}"></script>
+    <script src="{% static '/FrWork/admin_lte/vendors/Flot/jquery.flot.resize.js' %}"></script>
+    <!-- Flot plugins -->
+    <script src="{% static '/FrWork/admin_lte/vendors/flot.orderbars/js/jquery.flot.orderBars.js' %}"></script>
+    <script src="{% static '/FrWork/admin_lte/vendors/flot-spline/js/jquery.flot.spline.min.js' %}"></script>
+    <script src="{% static '/FrWork/admin_lte/vendors/flot.curvedlines/curvedLines.js' %}"></script>
+    <!-- DateJS -->
+    <script src="{% static '/FrWork/admin_lte/vendors/DateJS/build/date.js' %}"></script>
+    <!-- JQVMap -->
+    <script src="{% static '/FrWork/admin_lte/vendors/jqvmap/dist/jquery.vmap.js' %}"></script>
+    <script src="{% static '/FrWork/admin_lte/vendors/jqvmap/dist/maps/jquery.vmap.world.js' %}"></script>
+    <script src="{% static '/FrWork/admin_lte/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js' %}"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="{% static '/FrWork/admin_lte/vendors/moment/min/moment.min.js' %}"></script>
+    <script src="{% static '/FrWork/admin_lte/vendors/bootstrap-daterangepicker/daterangepicker.js' %}"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="{% static '/FrWork/admin_lte/build/js/custom.min.js' %}"></script>
+	
+  </body>
+</html>

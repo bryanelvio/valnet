@@ -1,0 +1,511 @@
+{% extends "../index_master.html" %}
+{% load static %}
+{% block content %}
+
+<script>
+  var seleccion = document.querySelectorAll('input[name="formSwitch"]');
+  
+
+
+function showForm() {
+    var s1 = document.getElementById('r');
+    var s2 = document.getElementById('e');
+    var s3 = document.getElementById('i');
+
+    var form_res = document.getElementById('res');
+    var form_emp = document.getElementById('emp');
+    var form_inst = document.getElementById('inst');
+
+    if (s1.checked) {
+      form_res.style.display = 'block';}
+    else {
+        form_res.style.display = 'none';
+    }
+    
+    if (s2.checked) {form_emp.style.display = 'block'}
+    else {form_emp.style.display = 'none'}
+    
+    if (s3.checked) {form_inst.style.display = 'block'}
+    else {form_inst.style.display = 'none'} 
+  }
+
+function showField(){
+  var wire = document.getElementById('w')
+  var fibra = document.getElementById('f')
+  var planes_f = document.getElementById('planes_f')
+  var planes_w = document.getElementById('planes_w')
+
+  if (wire.checked) {
+    planes_w.style.display = 'block';
+  } else {planes_w.style.display = 'none'}
+
+  if (fibra.checked) {
+    planes_f.style.display = 'block';
+  } else {planes_f.style.display = 'none'}
+}
+   
+</script>
+<!--CSS-->
+<link href="{% static 'forms.css' %}" rel="stylesheet">
+
+<div class="right_col" role="main">
+    <h1 id="titulo">Agregar Nuevo Cliente</h1>
+    <!-- Seleccion de tipo de cliente-->
+    <fieldset>
+    <div id="seleccion">
+      <form method="POST">
+      <input class="radio" id="r" onclick="javascript:showForm();" type="radio"  name="tipo" value="Residencial">
+      <label for="radio">Residencial</label>
+      <input class="radio" id="e" onclick="javascript:showForm();" type="radio"  name="tipo" value="Empresarial">
+      <label onclick="javascript:showForm();" for="empresarial">Empresarial</label>
+      <input class="radio" id="i" onclick="javascript:showForm();" type="radio"  name="tipo" value="Institucional">
+      <label onclick="javascript:showForm();" for="Institucional">Institucional</label>
+      </form>
+  
+    </fieldset>
+    {% if error %}
+    <div class="alert alert-danger" role="alert">
+      {{ error }}
+    </div>
+    {% endif %}
+    <!-- Formulario Cliente Residencial -->
+    
+    <div class="form" id="res">
+      <h1 class="formheader">Formulario <b>Cliente Residencial</b></h1>
+      <hr>
+      <form method="POST">
+        {% csrf_token %}
+        <input type="radio" id="tipo" name="tipo" value="Residencial" checked hidden>
+        <div class="form-group row">
+          <label for="nombre" class="col-4 col-form-label">Nombres</label> 
+          <div class="col-8">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fa fa-address-card"></i>
+                </div>
+              </div> 
+              <input id="nombre" name="nombre" placeholder="Nombre de Cliente" type="text" class="form-control" required="required">
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="apellidos" class="col-4 col-form-label">Apellidos</label> 
+          <div class="col-8">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fa fa-id-card-o"></i>
+                </div>
+              </div> 
+              <input id="apellidos" name="apellidos" placeholder="Apellidos del Cliente" type="text" class="form-control" required>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="email" class="col-4 col-form-label">Email</label> 
+          <div class="col-8">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fa fa-envelope"></i>
+                </div>
+              </div> 
+              <input id="email" name="email" placeholder="Correo Electronico" type="email" class="form-control" required="required">
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="phone" class="col-4 col-form-label">Telefono</label> 
+          <div class="col-8">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fa fa-phone"></i>
+                </div>
+              </div> 
+              <input id="phone" name="telefono" placeholder="No. de Contacto" type="text" class="form-control" required="required">
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="cedula" class="col-4 col-form-label">C&eacute;dula</label> 
+          <div class="col-8">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fa fa-id-card-o"></i>
+                </div>
+              </div> 
+              <input id="cedula" name="cedula" placeholder="Ced. de identidad" type="text" class="form-control" required="required">
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="zona" class="col-4 col-form-label">Zona</label> 
+          <div class="col-8">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class='bx bxs-map' ></i>
+                </div>
+              </div> 
+              <input id="zona" name="zona" placeholder="Area de ubicacion" type="text" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="zona" class="col-4 col-form-label">Direcci&oacute;n</label> 
+          <div class="col-8">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class='bx bx-map'></i>
+                </div>
+              </div> 
+              <textarea name="direccion" id="direccion" placeholder="Escriba la direcci&oacute;n del Cliente..."></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="plan" class="col-4 col-form-label">Plan</label> 
+            <div class="col-8">
+              <input onclick="javascript:showField();" type="radio" name="plan" id="w" value="wireless">
+              <label for="wireless">Wireless</label>
+              <input onclick="javascript:showField();" type="radio" name="plan" id="f" value="fibra">
+              <label for="fibra">Fibra &Oacute;ptica</label>
+          </div>
+        </div>
+
+
+        <div class="form-group row">
+          <label for="categoria" class="col-4 col-form-label">Seleccion el Plan</label> 
+          <div class="col-8">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class='bx bx-signal-4'></i>
+                </div>
+              </div> 
+              <!-- Aqui los select-->
+              <select id="planes_f" name="mbps_f">
+                <option value="10/5 Mbps">10/5 Mbps</option>
+                <option value="20/10 Mbps">20/10 Mbps</option>
+                <option value="40/30 Mbps">40/30 Mbps</option>
+                <option value="60/50 Mbps">60/50 Mbps</option>
+                <option value="100/75 Mbps">100/75 Mbps</option>
+                <option value="200/150 Mbps">200/150 Mbps</option>
+                <option value="250/200 Mbps">250/200 Mbps</option>
+                <option value="350/300 Mbps">350/300 Mbps</option>
+              </select>
+          <!--Select Wireless-->
+              <select id="planes_w" name="mbps_w">
+                <option value="5/3 Mbps">5/3 Mbps</option>
+                <option value="10/5 Mbps">10/5 Mbps</option>
+                <option value="15/7 Mbps">15/7 Mbps</option>
+                <option value="20/10 Mbps">20/10 Mbps</option>
+                <option value="30/15 Mbps">30/15 Mbps</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="form-group row">
+          <label for="f_nac" class="col-4 col-form-label">Fecha de Nacimiento</label> 
+          <div class="col-8">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fa fa-calendar"></i>
+                </div>
+              </div> 
+              <input id="f_nac" name="f_nac" placeholder="Fecha de nacimiento" type="date" class="form-control" required>
+            </div>
+          </div>
+        </div> 
+        <div class="form-group row">
+          <div class="offset-4 col-8">
+            <button name="submit" type="submit" class="btn btn-primary">Solicitar Servicio</button>
+          </div>
+          </div>
+        </div>
+      </form>
+ 
+
+    <!-- Formulario Cliente Empresarial -->
+    <div class="form" id="emp">
+      <h1 class="formheader">Formulario <b>Cliente Empresarial</b></h1>
+      <hr>
+      <form action="{% url 'crear_cliente' %}" method="POST">
+        {% csrf_token %}
+        <input type="radio" id="tipo" name="tipo" value="Empresarial" checked hidden>
+        <div class="form-group row">
+          <label for="nombre" class="col-4 col-form-label">Nombre de Empresa</label> 
+          <div class="col-8">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fa fa-address-card"></i>
+                </div>
+              </div> 
+              <input id="nombre" name="nombre" placeholder="Nombre de Cliente" type="text" class="form-control" required="required">
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="apellidos" class="col-4 col-form-label">Razon Social</label> 
+          <div class="col-8">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fa fa-id-card-o"></i>
+                </div>
+              </div> 
+              <input id="apellidos" name="apellidos" placeholder="Raz&oacute;n Social de la Empresa" type="text" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="email" class="col-4 col-form-label">Email</label> 
+          <div class="col-8">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fa fa-envelope"></i>
+                </div>
+              </div> 
+              <input id="email" name="email" placeholder="Correo Electronico" type="email" class="form-control" required="required">
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="phone" class="col-4 col-form-label">Telefono</label> 
+          <div class="col-8">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fa fa-phone"></i>
+                </div>
+              </div> 
+              <input id="phone" name="telefono" placeholder="No. de Contacto" type="text" class="form-control" required="required">
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="rnc" class="col-4 col-form-label">RNC</label> 
+          <div class="col-8">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fa fa-id-card-o"></i>
+                </div>
+              </div> 
+              <input id="rnc" name="rnc" placeholder="RNC de Empresa" type="text" class="form-control" required="required">
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="zona" class="col-4 col-form-label">Zona</label> 
+          <div class="col-8">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class='bx bxs-map' ></i>
+                </div>
+              </div> 
+              <input id="zona" name="zona" placeholder="Area de ubicacion" type="text" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="zona" class="col-4 col-form-label">Direcci&oacute;n</label> 
+          <div class="col-8">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class='bx bx-map'></i>
+                </div>
+              </div> 
+              <textarea name="direccion" id="direccion" placeholder="Escriba la direcci&oacute;n del Cliente..."></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="plan" class="col-4 col-form-label">Plan</label> 
+            <div class="col-8">
+              <input onclick="javascript:showField();" type="radio" name="plan" id="w" value="wireless">
+              <label for="wireless">Wireless</label>
+              <input onclick="javascript:showField();" type="radio" name="plan" id="f" value="fibra">
+              <label for="fibra">Fibra &Oacute;ptica</label>
+          </div>
+        </div>
+
+
+        <div class="form-group row">
+          <label for="zona" class="col-4 col-form-label">Plan Asignado</label> 
+          <div class="col-8">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class='bx bx-up-arrow-alt' ></i>
+                </div>
+              </div> 
+              <input id="mbps" name="subida" placeholder="00" type="number">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class='bx bx-down-arrow-alt' ></i>
+                </div>
+              </div>
+              <input id="mbps" name="bajada" placeholder="00" type="number"><span class="suffix">Mbps</span>
+            </div>
+          </div>
+        </div> 
+        <div class="form-group row">
+          <div class="offset-4 col-8">
+            <button name="submit" type="submit" class="btn btn-primary">Solicitar Servicio</button>
+          </div>
+          </div>
+        </form>
+    </div>
+      
+    <!-- Formulario Cliente Institucional -->
+    <div class="form" id="inst">
+      <h1 class="formheader">Formulario <b>Institucional</b></h1>
+      <hr>
+      <form method="POST">
+        {% csrf_token %}
+        <input type="radio" id="tipo" name="tipo" value="Institucional" checked hidden>
+        <div class="form-group row">
+          <label for="nombre" class="col-4 col-form-label">Nombre de Instituci&oacute;n</label> 
+          <div class="col-8">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fa fa-address-card"></i>
+                </div>
+              </div> 
+              <input id="nombre" name="nombre" placeholder="Nombre de Cliente" type="text" class="form-control" required="required">
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="apellidos" class="col-4 col-form-label">Raz&oacute;n Social</label> 
+          <div class="col-8">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fa fa-id-card-o"></i>
+                </div>
+              </div> 
+              <input id="apellidos" name="apellidos" placeholder="Raz&oacute;n Social de la Instituci&oacute;n" type="text" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="email" class="col-4 col-form-label">Email</label> 
+          <div class="col-8">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fa fa-envelope"></i>
+                </div>
+              </div> 
+              <input id="email" name="email" placeholder="Correo Electronico" type="email" class="form-control" required="required">
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="phone" class="col-4 col-form-label">Telefono</label> 
+          <div class="col-8">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fa fa-phone"></i>
+                </div>
+              </div> 
+              <input id="phone" name="telefono" placeholder="No. de Contacto" type="text" class="form-control" required="required">
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="cedula" class="col-4 col-form-label">RNC</label> 
+          <div class="col-8">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fa fa-id-card-o"></i>
+                </div>
+              </div> 
+              <input id="rnc" name="rnc" placeholder="RNC de Organizaci&oacute;n" type="text" class="form-control" required="required">
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="zona" class="col-4 col-form-label">Zona</label> 
+          <div class="col-8">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class='bx bxs-map' ></i>
+                </div>
+              </div> 
+              <input id="zona" name="zona" placeholder="Area de ubicacion" type="text" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="zona" class="col-4 col-form-label">Direcci&oacute;n</label> 
+          <div class="col-8">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class='bx bx-map'></i>
+                </div>
+              </div> 
+              <textarea name="direccion" id="direccion" placeholder="Escriba la direcci&oacute;n del Cliente..."></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="plan" class="col-4 col-form-label">Plan</label> 
+            <div class="col-8">
+              <input onclick="javascript:showField();" type="radio" name="plan" id="w" value="wireless">
+              <label for="wireless">Wireless</label>
+              <input onclick="javascript:showField();" type="radio" name="plan" id="f" value="fibra">
+              <label for="fibra">Fibra &Oacute;ptica</label>
+          </div>
+        </div>
+
+
+        <div class="form-group row">
+          <label for="zona" class="col-4 col-form-label">Plan Asignado</label> 
+          <div class="col-8">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class='bx bx-up-arrow-alt' ></i>
+                </div>
+              </div> 
+              <input id="mbps" name="subida" placeholder="00" type="number">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class='bx bx-down-arrow-alt' ></i>
+                </div>
+              </div>
+              <input id="mbps" name="bajada" placeholder="00" type="number"><span class="suffix">Mbps</span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="offset-4 col-8">
+            <button name="submit" type="submit" class="btn btn-primary">Solicitar Servicio</button>
+          </div>
+          </div>
+        </form>
+    </div>
+      
+</div>
+{% endblock %}
+
+

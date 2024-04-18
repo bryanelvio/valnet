@@ -1,0 +1,147 @@
+{% extends "../index_master.html" %}
+
+{% block content %}
+
+{% load static %}
+<title>Valnet | {{ ip.num }}</title>
+<link href="{% static 'forms.css' %}" rel="stylesheet">
+
+<style>
+  table{
+    margin: auto;
+    justify-content: center;
+    width: 60%;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    background-color: lightgray;
+    border: 1px solid rgb(173, 173, 173);
+    height: 50px;
+  }
+  .tinfo thead{
+  text-align: center;
+  padding-bottom: 10px;
+  }
+
+  label span{
+    font-size: 17px;
+    font-weight: 600;
+    color: black;
+  }
+  
+  .cheader {
+    float: right;
+    justify-content: center;
+    font-weight: 600;
+    color: black;
+    padding-right: 10px;
+    padding-top:3px;
+
+  }
+  
+  .ccont {
+    font-weight: 400;
+    color: black;
+    padding-left: 10px;
+    font-style: italic;
+  }
+</style>
+
+<div class="right_col" role="main">
+  <div class="client_info">
+
+    <h1 id="titulo">Edici&oacute;n de IP</h1>
+      <div class="client_status">
+      {% if ip.activo == 0 %}
+      
+      <div class="articulo_form">
+        <h1>Detalles del IP: {{ ip.num }}</h1>
+        <table>
+          <tr>
+            <td class="cheader">Estado</td><td class="ccont">{% if ip.activo == 0 %} Inactivo {% else %} {{ ip.activo }} {% endif %}</td>
+          </tr>
+          <tr>
+            <td class="cheader">Asignado a</td><td class="ccont">{% if ip.usedby == none %} Sin asignar {% else %} {{ ip.usedby }} {% endif %}</td>
+          </tr>
+        </table>
+        <form action="{% url 'asignar_ip' ip_id=ip.id %}" method="POST">
+          {% csrf_token %}
+          <div class="form-group row">
+            <label for="cliente" class="col-4"><span>Asignar a Cliente</span></label> 
+            <div class="col-8">
+              <select id="cliente" name="cliente" class="custom-select">
+                {% for c in clientes %}
+                <option value="{{c.id}}">{{c.nombre}} {{c.apellidos}}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="offset-4 col-8">
+              <button name="submit" type="submit" class="btn btn-primary">Asignar</button>
+              
+            </div>
+          </div>
+        </form>
+        
+        <hr><button style="float: left;" name="submit" onclick="redirectToURL()" type="submit" class="btn btn-secondary">Volver al Listado</button>
+        <form style="text-align: end;" action="{% url 'eliminar_ip' ip.id %}" method="post">
+          {% csrf_token %}
+          <button style="background-color: rgb(184, 0, 0); border:none;" name="submit" type="submit" class="btn btn-secondary">Eliminar IP</button>
+       </form>
+        
+  </div>
+      {% else %}
+        <h4>Este Ip esta asignado al cliente <b style="color:green">{{ ip.usedby }}</b> </h4>
+        <div class="articulo_form">
+          <h1>Detalles del IP: {{ ip.num }}</h1>
+          <table>
+            <tr>
+              <td class="cheader">Estado</td><td class="ccont">{% if ip.activo == 0 %} Inactivo {% else %} <span style="color:green">Activo</span> {% endif %}</td>
+            </tr>
+            <tr>
+              <td class="cheader">Asignado a</td><td class="ccont">{% if ip.usedby == none %} Sin asignar {% else %} {{ ip.usedby }} {% endif %}</td>
+            </tr>
+          </table>
+          <form action="{% url 'asignar_ip' ip_id=ip.id %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group row">
+              <label for="cliente" class="col-4"><span>Reasignar IP</span></label> 
+              <div class="col-8">
+                <select id="cliente" name="cliente" class="custom-select">
+                  {% for c in clientes %}
+                  <option value="{{c.id}}">{{c.nombre}} {{c.apellidos}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="offset-4 col-8">
+                <button name="submit" type="submit" class="btn btn-primary">Asignar</button>
+                
+              </div>
+            </div>
+          </form>
+          
+          <hr><button style="float: left;" name="submit" onclick="redirectToURL()" type="submit" class="btn btn-secondary">Volver al Listado</button>
+          <form style="text-align: end;" action="{% url 'eliminar_ip' ip.id %}" method="post">
+            {% csrf_token %}
+            <button style="background-color: rgb(184, 0, 0); border:none;" name="submit" type="submit" class="btn btn-secondary">Eliminar IP</button>
+         </form>
+          
+    </div>
+      {% endif %}
+      </div>
+  </div>
+<div class="botones">
+  <form action="{% url 'eliminar_ip' ip.id %}" method="post">
+    {% csrf_token %}
+ </form>
+</div>
+</div>
+<script>
+  function redirectToURL() {
+      // Replace 'https://example.com' with the URL you want to redirect to
+      window.location.replace('../listado_ips');
+  }
+</script>
+{% endblock %}

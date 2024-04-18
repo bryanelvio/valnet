@@ -1,0 +1,84 @@
+{% extends "../index_master.html" %}
+
+{% block content %}
+
+{% load static %}
+<title>Valnet | {{cliente.nombre}} {{cliente.apellidos}}</title>
+<link href="{% static 'info.css' %}" rel="stylesheet">
+
+<div class="right_col" role="main">
+  <div class="client_info">
+    <h1>{{cliente.nombre}} {{cliente.apellidos}}</h1>
+    <h3 class="tipo">Cliente <b style="color:orange">{{cliente.tipo}}</b></h3>
+      <table>
+
+        <tr>
+          <td class="cheader">Cedula/RNC</td><td class="ccont">
+            {% if cliente.cedula == none %}&nbsp;{% else %}{{cliente.cedula}}{% endif %}
+            {% if cliente.rnc == none %}&nbsp;{% else %}{{cliente.rnc}}{% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td class="cheader">Telefono</td><td class="ccont">{{cliente.telefono}}</td>
+        </tr>
+        <tr>
+          <td class="cheader">E-mail</td><td class="ccont">{{cliente.email}}</td>
+        </tr>
+        <tr>
+          <td class="cheader">Zona</td><td class="ccont">{{cliente.zona}}</td>
+        </tr>
+        <tr>
+          <td class="cheader">Direcci&oacute;n</td><td class="ccont">{{cliente.direccion}}</td>
+        </tr>
+        <tr>
+          <td class="cheader">Plan</td><td class="ccont">{{cliente.plan}}</td>
+        </tr>
+        <tr>
+          <td class="cheader">Fecha de Nac.</td><td class="ccont">{{cliente.f_nac}}</td>
+        </tr>
+        <tr>
+          <td class="cheader">Fecha de Registro</td><td class="ccont">{{cliente.f_reg}}</td>
+        </tr>
+      </table>
+      <div class="client_status">
+      {% if cliente.instalado == None %}
+        <h4>El cliente esta <b style="color:red">Esperando por Instalación.</b></h4>
+      {% else %}
+        <h4>El cliente ha sido <b style="color:green">Instalado exitosamente.</b> en {{ cliente.instalado }}</h4>
+        <div class="articulo_form">
+          <h4>Informaci&oacute;n de Instalaci&oacute;n</h4>
+          <table>
+
+            <tr>
+              <td class="cheader">Hotspot / PPP</td><td class="ccont">{{ cliente.ppp }}</td>
+            </tr>
+            <tr>
+              <td class="cheader">IP Asignada</td><td class="ccont">{{cliente.ip_activo}}</td>
+            </tr>
+            <tr>
+              <td class="cheader">Caja NAP</td><td class="ccont">{{cliente.c_nap}}</td>
+            </tr>
+            <tr>
+              <td class="cheader">Caja ONT</td><td class="ccont">{{cliente.c_ont}}</td>
+            </tr>
+            <tr>
+              <td class="cheader">Caja Router</td><td class="ccont">{{cliente.c_router}}</td>
+            </tr>
+          </table>
+        </div>
+      {% endif %}
+      </div>
+  </div>
+<div class="botones">
+  <form action="{% url 'eliminar_cliente' cliente.id %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Eliminar Cliente</button>
+ </form>
+ <form action="{% url 'editar_cliente' cliente.id %}" method="post" >
+  {% csrf_token %}
+  <button type="submit">Editar</button>
+</form>
+</div>
+
+</div>
+{% endblock %}

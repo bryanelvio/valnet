@@ -1,0 +1,82 @@
+{% extends "../index_master.html" %}
+{% load static %}
+{% block content %}
+
+<!--CSS-->
+<link href="{% static 'forms.css' %}" rel="stylesheet">
+<link href="{% static 'info.css' %}" rel="stylesheet">
+
+<div class="right_col" role="main">
+    <h1 id="titulo">Editar Articulo <i>{{articulo.nombre}}</i></h1>
+
+    <!-- Formulario Nuevo articulo -->
+    
+    <div class="articulo_form">
+      <form action="{% url 'editar_articulo' articulo.id %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group row">
+          <label for="nombre" class="col-4 col-form-label">Nombre del Articulo</label> 
+          <div class="col-8">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fa fa-dropbox"></i>
+                </div>
+              </div> 
+              <input id="nombre" value="{{articulo.nombre}}" name="nombre" type="text" class="form-control" required="required">
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="descripcion" class="col-4 col-form-label">Descripción / Uso</label> 
+          <div class="col-8">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">...</div>
+              </div> 
+              <input id="descripcion" value="{{articulo.descripcion}}" name="descripcion" type="text" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="text" class="col-4 col-form-label">Cantidad</label> 
+          <div class="col-8">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">#</div>
+              </div> 
+              <input id="cantidad" value="{{articulo.cantidad}}" name="cantidad" type="text" required="required" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="medida" class="col-4 col-form-label">Medida</label> 
+          <div class="col-8">
+            <select id="medida" name="medida" class="custom-select" required="required">
+              {% if articulo.medida == 'ud' %}<option selected value="ud">Unidad</option>{% else %}<option value="ud">Unidad</option>{% endif %}
+              {% if articulo.medida == 'cm' %}<option selected value="cm">Centímetros</option>{% else %}<option value="cm">Centímetros</option>{% endif %}
+              {% if articulo.medida == 'mt' %}<option selected value="mt">Metro</option>{% else %}<option value="mt">Metro</option>{% endif %}
+              {% if articulo.medida == 'pulg' %}<option selected value="pulg">Pulgadas</option>{% else %}<option value="pulg">Pulgadas</option>{% endif %}
+            </select>
+          </div>
+        </div> 
+        <div class="form-group row">
+          <div class="offset-4 col-8">
+            <button style="background-color:#001b36; border:none;" name="submit" type="submit" class="btn btn-primary"><i style="color:#f5811f;" class='bx bx-refresh' ></i> Actualizar</button>
+          </div>
+        </div>
+      </form>
+      <hr>
+      <button style=" float:right;" onclick="redirectToURL()" type="submit" class="btn btn-outline-dark btn-sm"><i class='bx bx-arrow-back'></i> Volver al Almacen</button>
+      
+</div>
+</div>
+<script>
+  function redirectToURL() {
+      // Replace 'https://example.com' with the URL you want to redirect to
+      window.location.replace('../almacen');
+  }
+</script>
+{% endblock %}
+
+

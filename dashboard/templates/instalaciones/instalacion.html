@@ -1,0 +1,137 @@
+{% extends "../index_master.html" %}
+
+{% block content %}
+
+{% load static %}
+<title>Valnet | Instalacion #{{ instalacion.id }}</title>
+<link href="{% static 'forms.css' %}" rel="stylesheet">
+
+<div class="right_col" role="main">
+  <div class="client_info">
+
+    <h1 id="titulo">Instalaci&oacute;n #{{ instalacion.id }} | Brigada {{instalacion.brigada.ficha}}</h1>
+      <div class="articulo_form">
+     
+        <table>
+          <tr>
+            <td style="width:150px">Cliente</td><td class="ccont">{{instalacion.cliente}}</td>
+          </tr>
+          <tr>
+            <td class="cheader">Categoria</td><td class="ccont">{{instalacion.cliente.tipo}}</td>
+          </tr>
+          <tr>
+            <td class="cheader">Telefono</td><td class="ccont">{{instalacion.cliente.telefono}}</td>
+          </tr>
+          <tr>
+            <td class="cheader">Direcci&oacute;n</td><td class="ccont">{{instalacion.cliente.direccion}}</td>
+          </tr>
+          <tr>
+            <td class="cheader">Zona</td><td class="ccont">{{instalacion.cliente.zona}}</td>
+          </tr>
+          <tr>
+            <td class="cheader">Plan</td><td class="ccont">{{instalacion.cliente.plan}}</td>
+          </tr>
+          <tr>
+            <td class="cheader">Abierto en</td><td class="ccont">{{instalacion.f_reg}}</td>
+          </tr>
+          <tr>
+            <td class="cheader">Fecha L&iacute;mite</td><td class="ccont">{{ticket.f_compromiso}}</td>
+          </tr>
+        </table>
+            </div>
+            
+        </div>
+        <div class="articulo_form">
+          <div class="table-responsive">
+            <form method="POST">
+              {% csrf_token %}
+              <div class="form-group row">
+                <label for="ppp" class="col-4 col-form-label">Hostpot PPP</label> 
+                <div class="col-8">
+                  <input id="ppp" name="ppp" type="text" class="form-control">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="c_nap" class="col-4 col-form-label">Caja NAP</label> 
+                <div class="col-8">
+                  <input id="c_nap" name="c_nap" type="text" class="form-control">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="ip_activo" class="col-4 col-form-label">IPs Disponible</label> 
+                <div class="col-8">
+                  <select id="ip_activo" name="ip_activo" class="custom-select">
+                    {% for ip in ips %}
+                    <option value="{{ip.id}}">{{ip.num}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="mac" class="col-4 col-form-label">MAC de Equipo</label> 
+                <div class="col-8">
+                  <select id="mac" name="mac" class="custom-select">
+                    {% for e in equipos %}
+                    <option value="{{e.mac}}">{{e.mac}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="emisor" class="col-4 col-form-label">Emisor</label> 
+                <div class="col-8">
+                  <input id="emisor" name="emisor" type="text" class="form-control">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="textarea" class="col-4 col-form-label">Notas de Instalación</label> 
+                <div class="col-8">
+                  <textarea id="textarea" name="textarea" cols="40" rows="5" class="form-control"></textarea>
+                </div>
+              </div> 
+
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Articulo</th>
+                        <th>Cantidad a utilizar</th>
+                        <th>Unidad</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>Articulo</th>
+                        <th>Cantidad a utilizar</th>
+                        <th>Unidad</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    {% for m in materiales %}
+                    <tr>
+                        <td>{{m.id}}</td>
+                        <td><input style="border:none;" name="{{m.articulo}}" type="text" value="{{m.articulo}}({{m.cantidad}})" readonly></td>
+                        <td><input style="border:none;" value="0" type="number" name="cantidad" width="25%"></td>
+                        <td>{{m.medida}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="form-group row">
+              <div class="offset-4 col-8">
+                <button name="instalar" type="submit" class="btn btn-primary">He instalado al cliente</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        </div>
+    </div>
+</div>
+<script>
+  function redirectToURL() {
+      // Replace 'https://example.com' with the URL you want to redirect to
+      window.location.replace('../listado_ips');
+  }
+</script>
+{% endblock %}
